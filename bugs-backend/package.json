@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "set PORT=3030 & nodemon --ignore \"./data\" server.js"
+    "dev": "set PORT=3030 & nodemon --ignore \"./data\" server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
