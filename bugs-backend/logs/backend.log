@@ -1357,3 +1357,7 @@
 8.8.2024, 13:11:57 - ERROR - Couldnt get bugs | TypeError: Cannot read properties of undefined (reading 'by')
 8.8.2024, 13:12:25 - ERROR - Couldnt get bugs | TypeError: Cannot read properties of undefined (reading 'by')
 8.8.2024, 13:12:25 - ERROR - Couldnt get bugs | TypeError: Cannot read properties of undefined (reading 'by')
+8.8.2024, 18:12:01 - INFO - Server ready at port 3030
+8.8.2024, 18:14:26 - INFO - user login: | {"_id":"u102","fullname":"Rami San","score":120,"isAdmin":false}
+8.8.2024, 18:14:51 - INFO - user login: | {"_id":"pi1fjf","fullname":"Amit katz","isAdmin":true}
+8.8.2024, 18:16:23 - INFO - Server ready at port 3030
