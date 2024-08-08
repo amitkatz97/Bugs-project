@@ -76,5 +76,5 @@ app.get('/api/bug/download-pdf', (req, res) => {
 
 
 
-const port = 3030
-app.listen(port, () =>loggerService.info('Server ready at port 3030'))
+const PORT = process.env.PORT || 303002
+app.listen(PORT, () =>loggerService.info('Server ready at port 3030'))
