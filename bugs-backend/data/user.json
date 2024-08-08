@@ -1,0 +1,48 @@
+[
+    {
+        "_id": "u101",
+        "fullname": "Yosii Bar",
+        "username": "YosiB",
+        "password": "12345",
+        "score": 100,
+        "isAdmin": false
+    },
+    {
+        "_id": "u102",
+        "fullname": "Rami San",
+        "username": "Rambo",
+        "password": "123456",
+        "score": 120,
+        "isAdmin": false
+    },
+    {
+        "_id": "u103",
+        "fullname": "Ruthi Levy",
+        "username": "RuthLI",
+        "password": "1234567",
+        "score": 80,
+        "isAdmin": false
+    },
+    {
+        "_id": "u104",
+        "fullname": "Michael Cohen",
+        "username": "Micha",
+        "password": "12345678",
+        "score": 90,
+        "isAdmin": false
+    },
+    {
+        "username": "Ak1994",
+        "password": "$2b$10$4tOupjV83ZReihfOKoSsGeXzBjwQyNZayRgMNMLaZOk0SP0NKmaje",
+        "fullname": "Amit katz",
+        "_id": "pi1fjf",
+        "isAdmin": true
+    },
+    {
+        "username": "Yuvi",
+        "password": "$2b$10$qgtqWKgx5e6RyzybIgHPDeRXFa6OY5kyBAYDOsdnr/NeCWIlc0JLu",
+        "fullname": "Yuval",
+        "_id": "GO9nPI",
+        "isAdmin": false
+    }
+]

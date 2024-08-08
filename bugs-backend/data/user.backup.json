@@ -1,0 +1,30 @@
+[
+    {
+        "_id" : "u101",
+        "fullname" : "Yosii Bar",
+        "username" : "YosiB",
+        "password ": "12345",
+        "score" : 100
+    },
+    {
+        "_id" : "u102",
+        "fullname" : "Rami San",
+        "username" : "Rambo",
+        "password ": "123456",
+        "score" : 120
+    },
+    {
+        "_id" : "u103",
+        "fullname" : "Ruthi Levy",
+        "username" : "RuthLI",
+        "password ": "1234567",
+        "score" : 80
+    },
+    {
+        "_id" : "u104",
+        "fullname" : "Michael Cohen",
+        "username" : "Micha",
+        "password ": "12345678",
+        "score" : 90
+    }
+]
