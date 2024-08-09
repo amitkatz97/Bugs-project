@@ -1361,3 +1361,6 @@
 8.8.2024, 18:14:26 - INFO - user login: | {"_id":"u102","fullname":"Rami San","score":120,"isAdmin":false}
 8.8.2024, 18:14:51 - INFO - user login: | {"_id":"pi1fjf","fullname":"Amit katz","isAdmin":true}
 8.8.2024, 18:16:23 - INFO - Server ready at port 3030
+9.8.2024, 8:48:38 - INFO - Server ready at port 3030
+9.8.2024, 8:49:46 - INFO - user login: | {"_id":"pi1fjf","fullname":"Amit katz","isAdmin":true}
+9.8.2024, 8:50:11 - INFO - Server ready at port 3030
