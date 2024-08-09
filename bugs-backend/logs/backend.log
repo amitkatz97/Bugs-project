@@ -1364,3 +1364,36 @@
 9.8.2024, 8:48:38 - INFO - Server ready at port 3030
 9.8.2024, 8:49:46 - INFO - user login: | {"_id":"pi1fjf","fullname":"Amit katz","isAdmin":true}
 9.8.2024, 8:50:11 - INFO - Server ready at port 3030
+9.8.2024, 8:55:24 - INFO - Server ready at port 3030
+9.8.2024, 9:45:02 - INFO - Server ready at port 3030
+9.8.2024, 9:45:09 - INFO - Server ready at port $
+9.8.2024, 9:45:10 - INFO - Server ready at port ${}
+9.8.2024, 9:45:14 - INFO - Server ready at port ${PORT}
+9.8.2024, 9:45:24 - INFO - Server ready at port 3030
+9.8.2024, 9:46:16 - INFO - Server ready at port 3030
+9.8.2024, 9:46:17 - INFO - Server ready at port 3030
+9.8.2024, 9:46:21 - INFO - Server ready at port 3030
+9.8.2024, 9:46:34 - INFO - Server ready at port 3031 
+9.8.2024, 9:48:05 - INFO - Server ready at port 3031
+9.8.2024, 9:48:08 - INFO - Server ready at port 3032
+9.8.2024, 9:48:08 - INFO - Server ready at port 3031 
+9.8.2024, 10:04:38 - INFO - Server ready at port 3032
+9.8.2024, 10:04:38 - INFO - Server ready at port 3031 
+9.8.2024, 10:04:39 - INFO - Server ready at port 3032
+9.8.2024, 10:04:39 - INFO - Server ready at port 3031 
+9.8.2024, 10:06:21 - INFO - Server ready at port 3036
+9.8.2024, 10:06:21 - INFO - Server ready at port 3031 
+9.8.2024, 10:06:39 - INFO - Server ready at port 3030
+9.8.2024, 10:06:39 - INFO - Server ready at port 3031 
+9.8.2024, 13:59:16 - INFO - Server ready at port + 3031 
+9.8.2024, 13:59:16 - INFO - Server ready at port + 3030
+9.8.2024, 13:59:18 - INFO - Server ready at port3030
+9.8.2024, 13:59:18 - INFO - Server ready at port3031 
+9.8.2024, 13:59:22 - INFO - Server ready at port 3030
+9.8.2024, 13:59:22 - INFO - Server ready at port 3031 
+9.8.2024, 13:59:52 - INFO - Server ready at port 3030
+9.8.2024, 13:59:52 - INFO - Server ready at port 3031 
+9.8.2024, 14:00:12 - INFO - Server ready at port 3030
+9.8.2024, 14:00:12 - INFO - Server ready at port 3031 
+9.8.2024, 14:01:01 - INFO - Server ready at port 3030
+9.8.2024, 14:01:01 - INFO - Server ready at port 3031 
