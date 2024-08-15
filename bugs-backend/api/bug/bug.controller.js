@@ -9,7 +9,7 @@ export async function getBugs(req, res){
     const {severity , title, labels, sortBy ,pageIdx} = req.query
     const filterBy = {severity : +severity, title: title, labels: labels, sortBy: sortBy, pageIdx : pageIdx}
     try {
-        const bugs = await BugService.query(filterBy)
+        const bugs = await BugService.queryFromDb(filterBy)
         res.send(bugs)
     } catch (error) {
         console.log('Couldent gat bugs', error)
@@ -18,11 +18,11 @@ export async function getBugs(req, res){
 }
 
 export async function addBug(req , res){
-    const {title , severity, _id, description, creator} = req.body
-    const bugToSave ={_id : _id , title : title, severity : severity, description: description ,labels : [], creator}
+    const {title , severity, _id, description, creator, labels} = req.body
+    const bugToSave ={_id : _id , title : title, severity : severity, description: description ,labels : labels, creator}
     console.log("bug to save:", bugToSave)
     try {
-        const savedBug = await BugService.save(bugToSave)
+        const savedBug = await BugService.add(bugToSave)
         res.send(bugToSave)
         loggerService.info("saved succsfully" , bugToSave)
     } catch (err) {
@@ -36,8 +36,8 @@ export async function updateBug(req , res){
     const bugToSave ={_id : _id , title : title, severity : severity, description: description}
     console.log("bug to save:", bugToSave)
     try {
-        const savedBug = await BugService.save(bugToSave)
-        res.send(bugToSave)
+        const savedBug = await BugService.update(bugToSave)
+        res.send(savedBug)
     } catch (err) {
         console.log(`err:`, err)
         res.status(400).send(`Couldnt save bug`)
@@ -54,6 +54,7 @@ export async function getBug(req , res) {
 
     try {
         const bug = await BugService.getById(bugId)
+        console.log(bug)
         for(let i = 0; 5 > visitedBug.length +1 > i ; i++){ //try to not use for loop, only use if !visitBug.includ -- push
             if (!visitedBug.includes(bug._id)){
                 visitedBug.push(bug._id)

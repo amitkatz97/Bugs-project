@@ -18,9 +18,9 @@ export function AppHeader() {
             <div className='header-container'>
                 <nav className='app-nav' onClick={onUpdate}>
                     <NavLink to="/">Home</NavLink> |<NavLink to="/bug">Bugs</NavLink> |
-                    <NavLink to="/about">About</NavLink>  | {loggendinUser.isAdmin &&<NavLink to="/user">Users</NavLink>}
+                    <NavLink to="/about">About</NavLink>  | {loggendinUser?.isAdmin &&<NavLink to="/user">Users</NavLink>}
                 </nav>
-                <span> Hey {loggendinUser.fullname}</span>
+                <span> Hey {loggendinUser?.fullname}</span>
                 <h1>Bugs are Forever</h1>
             </div>
         </header>

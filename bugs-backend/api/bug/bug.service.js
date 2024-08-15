@@ -1,9 +1,12 @@
 // import { now } from "lodash";
 import { loggerService } from "../../services/logger.service.js";
 import { makeId, readJsonFile } from "../../services/util.service.js";
+import { ObjectId } from "mongodb";
+import { asyncLocalStorage } from '../../services/als.service.js'
 
 
 import fs from "fs";
+import { dbService } from "../../services/db.service.js";
 
 const bugs = readJsonFile("data/data.json")
 const PAGE_SIZE = 8
@@ -11,8 +14,11 @@ const PAGE_SIZE = 8
 export const BugService = {
     query,
     getById,
-    save,
-    remove
+    // save,
+    remove,
+    queryFromDb,
+    add,
+    update
 }
 
 async function query(filterBy){
@@ -39,12 +45,24 @@ async function query(filterBy){
     } catch (err) {
         loggerService.error("Couldnt get bugs", err)
     }
-    
+}
+
+async function queryFromDb(filterBy= {}){
+    const criteria = _buildCriteria(filterBy)
+    const sort = _buildSort(filterBy)
+    const collection = await dbService.getCollection('bugs')
+    var bugCursor = await collection.find(criteria, {sort} )
+    const bugs = await bugCursor.toArray()
+    return bugs
 }
 
 async function getById(bugId){
     try {
-        const bug = bugs.find(bug => bug._id === bugId)
+        const criteria = {_id: ObjectId.createFromHexString(bugId)}
+
+        const collection = await dbService.getCollection('bugs')
+        const bug = await collection.findOne(criteria)
+        
         // if(!bug) throw `Couldnt find bug with Id ${bugId}`
         return bug
     } catch (err) {
@@ -52,41 +70,87 @@ async function getById(bugId){
     }
 }
 
-async function save(bugToSave){
-    let currnetDate = new Date()
-    console.log(bugToSave)
-    try {
-        if (bugToSave._id){
-            const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
-            let bugCreationDate = bugs[idx].createAt  
-            bugs[idx] = bugToSave
-            bugToSave.createAt = bugCreationDate
-            bugToSave.updateTime = currnetDate
-        } else {
-            bugToSave._id = makeId()
-            bugToSave.createAt = currnetDate
-            bugs.push(bugToSave)
-        }
-        await _saveBugsToFile()
-        return bugToSave
-    } catch (err) {
-        loggerService.error('err', err) 
-       throw err
-    }
+// async function save(bugToSave){
+//     let currnetDate = new Date()
+//     console.log(bugToSave)
+//     try {
+//         if (bugToSave._id){
+//             const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
+//             let bugCreationDate = bugs[idx].createAt  
+//             bugs[idx] = bugToSave
+//             bugToSave.createAt = bugCreationDate
+//             bugToSave.updateTime = currnetDate
+//         } else {
+//             bugToSave._id = makeId()
+//             bugToSave.createAt = currnetDate
+//             bugs.push(bugToSave)
+//         }
+//         await _saveBugsToFile()
+//         return bugToSave
+//     } catch (err) {
+//         loggerService.error('err', err) 
+//        throw err
+//     }
+// }
 
+async function add(bug){
+    try {
+        const collection = await dbService.getCollection('bugs')
+		await collection.insertOne(bug)
+
+        return bug
+    } catch (err) {
+        loggerService.error('cannot insert bug', err)
+		throw err
+    }
 }
+
+async function update(bug){
+    let currnetDate = new Date()
+    const bugToSave = {severity : bug.severity, updateTime : currnetDate }
+
+    try {
+        const criteria = { _id: ObjectId.createFromHexString(bug._id) }
+
+        const collection = await dbService.getCollection('bugs')
+		await collection.updateOne(criteria, {$set: bugToSave})
+
+        return bug
+    } catch (err) {
+        loggerService.error("Cannot update bug with id", bug._id)
+        throw err
+    }
+}
+
+// async function remove(bugId, loggedinUser){
+//     try {
+//         const bug = bugs.find(bug=> bug._id ===bugId)
+//         if(bug.creator._id !== loggedinUser._id && !loggedinUser.isAdmin) throw 'not allowed to delete this bug'
+
+//         const bugIdx = bugs.findIndex(bug => bug._id ===bugId)
+//         if (bugIdx === -1) throw `Couldn't remove bug with _id ${bugId}`
+//         console.log("bug index:", bugIdx)
+//         bugs.splice(bugIdx, 1)
+//         _saveBugsToFile()
+//     } catch (err) {
+//         loggerService.error("Couldn't remove bug with", err)
+//         throw err
+//     }
+// }
 
 async function remove(bugId, loggedinUser){
     try {
-        const bug = bugs.find(bug=> bug._id ===bugId)
-        if(bug.creator._id !== loggedinUser._id && !loggedinUser.isAdmin) throw 'not allowed to delete this bug'
-        const bugIdx = bugs.findIndex(bug => bug._id ===bugId)
-        if (bugIdx === -1) throw `Couldn't remove bug with _id ${bugId}`
-        console.log("bug index:", bugIdx)
-        bugs.splice(bugIdx, 1)
-        _saveBugsToFile()
+        const criteria ={_id: ObjectId.createFromHexString(bugId)}
+        if(!loggedinUser.isAdmin) criteria['owner._id'] = loggedinUser._id
+
+        const collection =await dbService.getCollection('bugs')
+        const res = await collection.deleteOne(criteria)
+
+        if(res.deletedCount === 0) throw ("Not allowed to deleted this bug")
+            loggerService.warn(`bug with id ${bugId} id deleted`)
+        return bugId
     } catch (err) {
-        loggerService.error("Couldn't remove bug with", err)
+        loggerService.error("Couldn't remove bug with id:", bugId ,err)
         throw err
     }
 }
@@ -116,4 +180,18 @@ function _sortBugs(bugs, sortBy){
     } else if (sortBy.by ==='title'){
         bugs.sort((bug1, bug2) => (bug1.title - bug2.title) * sortBy.dir)
     }
+}
+
+function _buildCriteria(filterBy){
+    const criteria ={ 
+        title: {$regex: filterBy.title },
+        severity: {$gte: filterBy.severity},
+        labels: {$regex: filterBy.labels}
+    }
+    return criteria
+}
+
+function _buildSort({sortBy}){
+    if (!sortBy) return {}
+    return { [sortBy.by]: sortBy.dir}
 }
